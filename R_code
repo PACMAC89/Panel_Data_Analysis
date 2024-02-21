@@ -1,1 +1,96 @@
+#Installing packages
+install.packages("fixest")
+library(fixest)
+library(foreign)
+install.packages("tidyverse")
+install.packages("haven")
+library(tidyverse)
+library(haven)
+install.packages("readxl")
+library(readxl)
+library(readr)
 
+# Loading packages
+library(gplots)
+library(foreign)
+library(tidyverse)
+
+#Loading Datasets for 2G and 4G (including 2G)
+library(plm)
+Panelo <- pdata.frame(Panelo2, index=c("Country", "Year"))
+Panelo <- pdata.frame(Panelo4, index=c("Country", "Year"))
+
+
+install.packages("panelr")
+library(panelr)
+Panelo <- panel_data(Panelo, id = Country, wave = Year)
+line_plot(Panelo, Panelo$Mobile_Cell_Sub)
+
+
+#LITTLE TEST - MCAR
+install.packages("remotes")
+remotes::install_github("njtierney/naniar")
+install.packages("naniar")
+library(naniar)
+Panelcar <- Panelo[,c(3:14)]
+Panelcar <- as.data.frame(Panelcar)
+str(Panelcar)
+View(Panelcar)
+mcar_test(Panelcar)
+
+#NOW LINEAR INTERPOLATION for all variables with trend # Apply linear interpolation within each country group for each variable that should be interpolated
+Panelo <- Panelo %>%
+  group_by(Country) %>%
+  mutate(ATM = impute_data(ATM))
+na_count <- sum(is.na(Panelo$ATM))
+View(Panelo)
+
+#MULTIPLE IMPUTATION with package MICE
+library(mice)
+[...]
+
+
+#Load imputed datasets for 2G and 4G
+[...]
+
+#Create equations
+equation2 <- Paneli2$GDP_cap ~ Paneli2$School_enroll_tert + Paneli2$Pop_age_15_64 +  Paneli2$Urban_pop + Paneli2$Fix_Broadband_Sub + Paneli2$Penet_2G  + Paneli2$Mobile_Cell_Sub +    Paneli2$Gross_fix_cap +  Paneli2$Gov_effective + Paneli2$Pol_Stability + Paneli2$Employ_services + Paneli2$ICT_goods_Exp #+ factor(Paneli2$war) + 
+
+equation4 <- Paneli4$GDP_cap ~ Paneli4$School_enroll_tert + Paneli4$Pop_age_15_64 +  Paneli4$Urban_pop + Paneli4$Fix_Broadband_Sub + Paneli4$Penet_2G  + Paneli4$Penet_4G  + Paneli4$Mobile_Cell_Sub +   Paneli4$Gross_fix_cap + Paneli4$Gov_effective + Paneli4$Employ_services + Paneli4$Pol_Stability + Paneli4$ICT_goods_Exp #+ factor(Paneli4$war)   
+
+
+#MODELLING with FIXEST PACKAGE (do the same for 2G and 4G)
+Panelfix2 <- feols(GDP_cap~ School_enroll_tert
+                  +Pop_age_15_64
+                  +Urban_pop
+                  +Fix_Broadband_Sub
+                  +Penet_2G
+                  +Mobile_Cell_Sub
+                  +Gov_effective
+                  +Pol_Stability
+                  +Employ_services
+                  +Gross_fix_cap
+                  +ICT_goods_Exp
+                  |Country+Year, data=Paneli2, 
+                  se = "cluster",fsplit="region")
+summary(Panelfix2)
+etable(Panelfix2)
+etable(Panelfix2$`sample.var: region; sample: SUBSAH_C`,Panelfix2$`sample.var: region; sample: SUBSAH_E`)
+
+
+#INSTRUMENTAL VARIABLE APPROACH (1st and 2nd stage)
+# Install and load necessary packages
+#Create or search an appropriate instrumental variable
+install.packages("AER")
+library(AER)
+library(plm)
+
+est_iv = feols(GDP_cap ~  Urban_pop  +  Pop_age_15_64 + School_enroll_tert + Fix_Broadband_Sub +              #
+                 Penet_2G +  Employ_services +  Pol_Stability + Gov_effective+ Gross_fix_cap + ICT_goods_Exp
+               | Country + Year | Mobile_Cell_Sub ~ IV  #
+               , Paneli4)
+
+#[...] apply now first and second stage
+
+#display the fixed effects (constants for each country)
+fixef(fixed) 
