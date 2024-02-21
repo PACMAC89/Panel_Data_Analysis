@@ -3,25 +3,25 @@
 #Topic: Advanced Panel Econometrics - The impact of mobile Internet (Mobile cellular subscriptions) on the economic development of developing countries.
 
 List of contents
-1. Introduction .................................................................................................................................................... 1
-2. Literature review on return prediction ............................................................................................................ 3
-3. Theoretical framework, Data and Research Methodology .............................................................................
-4. 4 3.1 Fixed effects model ....................................................................................................................................... 4
-3.1.1 Basic model ........................................................................................................................................... 4
-3.1.2 Extended model ..................................................................................................................................... 5
-   3.2 Data subsets .................................................................................................................................................. 6
-   3.3 Defining Developing countries ..................................................................................................................... 6
-3.4 Panel Econometrics ...................................................................................................................................... 6
-   3.5 Fixed effects model ....................................................................................................................................... 7
-   3.6 Missing Data management ............................................................................................................................ 9
-6. Empirical results ........................................................................................................................................... 11
-4.1 Descriptive Statistics .................................................................................................................................. 11
-4.2 Results of the data missingness management ............................................................................................. 11
-4.3 Analysis of the FE model............................................................................................................................ 12
-4.3.1 Full sample results ............................................................................................................................... 12
-4.3.2 Regional results ................................................................................................................................... 13
-4.3.3 Sub-regional results ............................................................................................................................. 14
-7. Instrumental variable approach .................................................................................................................... 15
+1. Introduction 
+2. Literature review on return prediction 
+3. Theoretical framework, Data and Research Methodology 
+3.1 Fixed effects model 
+3.1.1 Basic model 
+3.1.2 Extended model 
+   3.2 Data subsets 
+   3.3 Defining Developing countries 
+3.4 Panel Econometrics
+   3.5 Fixed effects model 
+   3.6 Missing Data management 
+4. Empirical results
+4.1 Descriptive Statistics 
+4.2 Results of the data missingness management 
+4.3 Analysis of the FE model
+4.3.1 Full sample results 
+4.3.2 Regional results 
+4.3.3 Sub-regional results 
+7. Instrumental variable approach
 
 
 Topic: Is there a significant and causal effect of mobile cellular subscriptions on economic development in developing countries and which differences in effects exist between different regions of the developing world?
